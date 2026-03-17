@@ -30,15 +30,15 @@ message CreateStartupResponse {
 
 message CreateCompaignsRequest {
     int32 startup_id = 1;
-    decimal target_amount = 2;
-    decimal min_investment = 3;
-    decimal revenue = 4;
-    decimal revenue_share = 5;
-    decimal burn_rate = 6;
-    decimal runway = 7;
-    optional decimal active_customers = 8;
-    decimal valuation = 9;
-    decimal gross_margin = 10;
+    double target_amount = 2;
+    double min_investment = 3;
+    double revenue = 4;
+    double revenue_share = 5;
+    double burn_rate = 6;
+    double runway = 7;
+    optional double active_customers = 8;
+    double valuation = 9;
+    double gross_margin = 10;
     string status = 11;
     google.protobuf.Timestamp deadline = 12;
 }
