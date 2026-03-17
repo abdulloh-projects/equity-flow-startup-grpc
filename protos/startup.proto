@@ -1,0 +1,75 @@
+syntax = "proto3"
+import "google/protobuf/timestamp.proto";
+
+package startup;
+
+service StartupService {
+  rpc CreateStartup(CreateStartupRequest) returns (CreateStartupResponse);
+  rpc CreateCompaigns(CreateCompaignsRequest) returns (CreateCompaignsResponse);
+  rpc CreateBankInfo(CreateBankInfoRequest) returns (CreateBankInfoResponse);
+  rpc CreateCompaignUpdate(CreateCompaignUpdateRequest) returns (CreateCompaignUpdateResponse);
+}
+
+message CreateStartupRequest {
+    int32 user_id = 1;
+    string name = 2;
+    string location = 3;
+    optional string description = 4;
+    optional string website_url = 5;
+    optional int32 team_size = 6;
+    int32 category_id = 7;
+    int32 stage_id = 8;
+    google.protobuf.Timestamp founded_at = 9;
+}
+
+message CreateStartupResponse {
+    bool success = 1;
+    string message = 2;
+    map<string, string> data = 3;
+}
+
+message CreateCompaignsRequest {
+    int32 startup_id = 1;
+    decimal target_amount = 2;
+    decimal min_investment = 3;
+    decimal revenue = 4;
+    decimal revenue_share = 5;
+    decimal burn_rate = 6;
+    decimal runway = 7;
+    optional decimal active_customers = 8;
+    decimal valuation = 9;
+    decimal gross_margin = 10;
+    string status = 11;
+    google.protobuf.Timestamp deadline = 12;
+}
+
+message CreateCompaignsResponse {
+    bool success = 1;
+    string message = 2;
+    map<string, string> data = 3;
+}
+
+message CreateBankInfoRequest {
+    int32 startup_id = 1;
+    string mfo = 2;
+    string account_number = 3;
+    string receipant_name = 4;
+}
+
+message CreateBankInfoResponse {
+    bool success = 1;
+    string message = 2;
+    map<string, string> data = 3;
+}
+
+message CreateCompaignUpdateRequest {
+    int32 compaign_id = 1;
+    string title = 2;
+    string body = 3;
+}
+
+message CreateCompaignUpdateResponse {
+    bool success = 1;
+    string message = 2;
+    map<string, string> data = 3;
+}
