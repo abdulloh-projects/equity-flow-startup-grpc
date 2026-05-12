@@ -1,75 +1,397 @@
 syntax = "proto3";
-import "google/protobuf/timestamp.proto";
 
 package startup;
 
+import "google/protobuf/timestamp.proto";
+
 service StartupService {
   rpc CreateStartup(CreateStartupRequest) returns (CreateStartupResponse);
+  rpc GetStartup(GetStartupRequest) returns (GetStartupResponse);
+  rpc UpdateStartup(UpdateStartupRequest) returns (UpdateStartupResponse);
+  rpc DeleteStartup(DeleteStartupRequest) returns (DeleteStartupResponse);
+
   rpc CreateCompaigns(CreateCompaignsRequest) returns (CreateCompaignsResponse);
+  rpc GetCompaigns(GetCompaignsRequest) returns (GetCompaignsResponse);
+  rpc UpdateCompaigns(UpdateCompaignsRequest) returns (UpdateCompaignsResponse);
+  rpc DeleteCompaigns(DeleteCompaignsRequest) returns (DeleteCompaignsResponse);
+
   rpc CreateBankInfo(CreateBankInfoRequest) returns (CreateBankInfoResponse);
+  rpc GetBankInfo(GetBankInfoRequest) returns (GetBankInfoResponse);
+  rpc UpdateBankInfo(UpdateBankInfoRequest) returns (UpdateBankInfoResponse);
+  rpc DeleteBankInfo(DeleteBankInfoRequest) returns (DeleteBankInfoResponse);
+
   rpc CreateCompaignUpdate(CreateCompaignUpdateRequest) returns (CreateCompaignUpdateResponse);
+  rpc GetCompaignUpdate(GetCompaignUpdateRequest) returns (GetCompaignUpdateResponse);
+  rpc UpdateCompaignUpdate(UpdateCompaignUpdateRequest) returns (UpdateCompaignUpdateResponse);
+  rpc DeleteCompaignUpdate(DeleteCompaignUpdateRequest) returns (DeleteCompaignUpdateResponse);
+
+  rpc ListStartups(ListStartupsRequest) returns (ListStartupsResponse);
+  rpc GetStartupsByUser(GetStartupsByUserRequest) returns (GetStartupsByUserResponse);
+  rpc ListCampaignsByStartup(ListCampaignsByStartupRequest) returns (ListCampaignsByStartupResponse);
+
+  rpc RecordInvestment(RecordInvestmentRequest) returns (RecordInvestmentResponse);
+  rpc GetInvestmentsByUser(GetInvestmentsByUserRequest) returns (GetInvestmentsByUserResponse);
+  rpc GetInvestmentsByStartup(GetInvestmentsByStartupRequest) returns (GetInvestmentsByStartupResponse);
+
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse);
 }
 
 message CreateStartupRequest {
-    int32 user_id = 1;
-    string name = 2;
-    string location = 3;
-    optional string description = 4;
-    optional string website_url = 5;
-    optional int32 team_size = 6;
-    int32 category_id = 7;
-    int32 stage_id = 8;
-    google.protobuf.Timestamp founded_at = 9;
+  int32 user_id = 1;
+  string name = 2;
+  string location = 3;
+  optional string description = 4;
+  optional string website_url = 5;
+  optional int32 team_size = 6;
+  int32 category_id = 7;
+  int32 stage_id = 8;
+  google.protobuf.Timestamp founded_at = 9;
 }
 
 message CreateStartupResponse {
-    bool success = 1;
-    string message = 2;
-    map<string, string> data = 3;
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
 }
 
 message CreateCompaignsRequest {
-    int32 startup_id = 1;
-    double target_amount = 2;
-    double min_investment = 3;
-    double revenue = 4;
-    double revenue_share = 5;
-    double burn_rate = 6;
-    double runway = 7;
-    optional double active_customers = 8;
-    double valuation = 9;
-    double gross_margin = 10;
-    string status = 11;
-    google.protobuf.Timestamp deadline = 12;
+  int32 startup_id = 1;
+  double target_amount = 2;
+  double min_investment = 3;
+  double revenue = 4;
+  double revenue_share = 5;
+  double burn_rate = 6;
+  double runway = 7;
+  optional double active_customers = 8;
+  double valuation = 9;
+  double gross_margin = 10;
+  string status = 11;
+  google.protobuf.Timestamp deadline = 12;
 }
 
 message CreateCompaignsResponse {
-    bool success = 1;
-    string message = 2;
-    map<string, string> data = 3;
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
 }
 
 message CreateBankInfoRequest {
-    int32 startup_id = 1;
-    string mfo = 2;
-    string account_number = 3;
-    string receipant_name = 4;
+  int32 startup_id = 1;
+  string mfo = 2;
+  string account_number = 3;
+  string receipant_name = 4;
 }
 
 message CreateBankInfoResponse {
-    bool success = 1;
-    string message = 2;
-    map<string, string> data = 3;
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
 }
 
 message CreateCompaignUpdateRequest {
-    int32 compaign_id = 1;
-    string title = 2;
-    string body = 3;
+  int32 compaign_id = 1;
+  string title = 2;
+  string body = 3;
 }
 
 message CreateCompaignUpdateResponse {
-    bool success = 1;
-    string message = 2;
-    map<string, string> data = 3;
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
+
+message UpdateStartupRequest {
+  int32 startup_id = 1;
+  optional string name = 2;
+  optional string location = 3;
+  optional string description = 4;
+  optional string website_url = 5;
+  optional int32 category_id = 6;
+  optional int32 stage_id = 7;
+  optional google.protobuf.Timestamp founded_at = 8;
+}
+
+message UpdateStartupResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
+
+message DeleteStartupRequest {
+  int32 startup_id = 1;
+}
+
+message DeleteStartupResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message UpdateCompaignsRequest {
+  int32 campaign_id = 1;
+  optional double target_amount = 2;
+  optional double min_investment = 3;
+  optional double revenue = 4;
+  optional double revenue_share = 5;
+  optional double burn_rate = 6;
+  optional double runway = 7;
+  optional double active_customers = 8;
+  optional double valuation = 9;
+  optional double gross_margin = 10;
+  optional string status = 11;
+  optional google.protobuf.Timestamp deadline = 12;
+  optional double raised_amount = 13;
+}
+
+message UpdateCompaignsResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
+
+message DeleteCompaignsRequest {
+  int32 campaign_id = 1;
+}
+
+message DeleteCompaignsResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message UpdateBankInfoRequest {
+  int32 bank_info_id = 1;
+  optional string mfo = 2;
+  optional string account_number = 3;
+  optional string receipant_name = 4;
+}
+
+message UpdateBankInfoResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
+
+message DeleteBankInfoRequest {
+  int32 bank_info_id = 1;
+}
+
+message DeleteBankInfoResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message UpdateCompaignUpdateRequest {
+  int32 update_id = 1;
+  optional string title = 2;
+  optional string body = 3;
+}
+
+message UpdateCompaignUpdateResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
+
+message DeleteCompaignUpdateRequest {
+  int32 update_id = 1;
+}
+
+message DeleteCompaignUpdateResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetStartupRequest {
+  int32 startup_id = 1;
+}
+
+message GetStartupResponse {
+  bool success = 1;
+  string message = 2;
+  int32 id = 3;
+  string user_id = 4;
+  string name = 5;
+  string location = 6;
+  string description = 7;
+  string website_url = 8;
+  google.protobuf.Timestamp founded_at = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+message GetCompaignsRequest {
+  int32 campaign_id = 1;
+}
+
+message GetCompaignsResponse {
+  bool success = 1;
+  string message = 2;
+  int32 id = 3;
+  int32 startup_id = 4;
+  double target_amount = 5;
+  double raised_amount = 6;
+  double min_investment = 7;
+  double revenue = 8;
+  double revenue_share = 9;
+  double burn_rate = 10;
+  double runway = 11;
+  double active_customers = 12;
+  double valuation = 13;
+  double gross_margin = 14;
+  string status = 15;
+  google.protobuf.Timestamp deadline = 16;
+  google.protobuf.Timestamp created_at = 17;
+  google.protobuf.Timestamp updated_at = 18;
+}
+
+message GetBankInfoRequest {
+  int32 bank_info_id = 1;
+}
+
+message GetBankInfoResponse {
+  bool success = 1;
+  string message = 2;
+  int32 id = 3;
+  int32 startup_id = 4;
+  string account_number = 5;
+  string bank_name = 6;
+  string receipient_name = 7;
+  string mfo = 8;
+}
+
+message GetCompaignUpdateRequest {
+  int32 update_id = 1;
+}
+
+message GetCompaignUpdateResponse {
+  bool success = 1;
+  string message = 2;
+  int32 id = 3;
+  int32 campaign_id = 4;
+  string title = 5;
+  string body = 6;
+  google.protobuf.Timestamp posted_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message ListStartupsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  optional string status = 3;
+}
+
+message StartupSummary {
+  int32 id = 1;
+  string name = 2;
+  string location = 3;
+  string description = 4;
+  string website_url = 5;
+  int32 category_id = 6;
+  int32 stage_id = 7;
+  google.protobuf.Timestamp founded_at = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message ListStartupsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated StartupSummary startups = 3;
+  int32 total = 4;
+  int32 page = 5;
+  int32 limit = 6;
+}
+
+message GetStartupsByUserRequest {
+  int32 user_id = 1;
+}
+
+message GetStartupsByUserResponse {
+  bool success = 1;
+  string message = 2;
+  repeated StartupSummary startups = 3;
+}
+
+message CampaignSummary {
+  int32 id = 1;
+  int32 startup_id = 2;
+  double target_amount = 3;
+  double raised_amount = 4;
+  double min_investment = 5;
+  double revenue = 6;
+  double revenue_share = 7;
+  double burn_rate = 8;
+  double runway = 9;
+  double active_customers = 10;
+  double valuation = 11;
+  double gross_margin = 12;
+  string status = 13;
+  google.protobuf.Timestamp deadline = 14;
+  google.protobuf.Timestamp created_at = 15;
+}
+
+message ListCampaignsByStartupRequest {
+  int32 startup_id = 1;
+}
+
+message ListCampaignsByStartupResponse {
+  bool success = 1;
+  string message = 2;
+  repeated CampaignSummary campaigns = 3;
+}
+
+message InvestmentRecord {
+  string id = 1;
+  string investor_id = 2;
+  int32 startup_id = 3;
+  int32 campaign_id = 4;
+  double amount = 5;
+  string message = 6;
+  string status = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message RecordInvestmentRequest {
+  string investor_id = 1;
+  int32 startup_id = 2;
+  int32 campaign_id = 3;
+  double amount = 4;
+  optional string message = 5;
+}
+
+message RecordInvestmentResponse {
+  bool success = 1;
+  string message = 2;
+  string investment_id = 3;
+}
+
+message GetInvestmentsByUserRequest {
+  string user_id = 1;
+}
+
+message GetInvestmentsByUserResponse {
+  bool success = 1;
+  string message = 2;
+  repeated InvestmentRecord investments = 3;
+}
+
+message GetInvestmentsByStartupRequest {
+  int32 startup_id = 1;
+}
+
+message GetInvestmentsByStartupResponse {
+  bool success = 1;
+  string message = 2;
+  repeated InvestmentRecord investments = 3;
+}
+
+message ListCategoriesRequest {}
+
+message CategoryItem {
+  int32 id = 1;
+  string name = 2;
+}
+
+message ListCategoriesResponse {
+  bool success = 1;
+  string message = 2;
+  repeated CategoryItem categories = 3;
 }
